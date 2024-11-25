@@ -35,16 +35,26 @@ class DecisionTree:
             weighted_gini += (size / total_samples) * gini
         return weighted_gini
 
-    def entropy(self, groups, classes):
-        """Compute the entropy of a split"""
+    def entropy(self, group):
+        """Compute the entropy of a group of samples"""
 
-        total_samples = [len(group) for group in groups]
+        total_samples = len(group)
+        if total_samples == 0:
+            return 0
+        elif total_samples == 1:
+            return 1
 
-        for group in groups:
-            if len(group) < 0:
-                continue
+        else:
+            labels = set([row[-1] for row in group])
 
-        pass
+            entropy = 0
+            for label in labels:
+                label_count = [row[-1] for row in group].count(label)
+                ratio = label_count / total_samples
+                entropy += -1 * (ratio) * np.log2(ratio)
+
+        return entropy
+
 
     def split(self, index, value, dataset):
         """
