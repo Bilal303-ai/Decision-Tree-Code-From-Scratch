@@ -39,22 +39,32 @@ class DecisionTree:
         """Compute the entropy of a group of samples"""
 
         total_samples = len(group)
-        if total_samples == 0:
-            return 0
-        elif total_samples == 1:
-            return 1
+        if total_samples <= 1:
+            entropy = 0
 
         else:
-            labels = set([row[-1] for row in group])
+            labels = [row[-1] for row in group]
+            classes = set(labels) #unique labels
 
             entropy = 0
-            for label in labels:
-                label_count = [row[-1] for row in group].count(label)
+            for class_val in classes:
+                label_count = labels.count(class_val)
                 ratio = label_count / total_samples
                 entropy += -1 * (ratio) * np.log2(ratio)
-                return entropy
+        return entropy
 
-        
+    def information_gain(self, parent, children):
+        '''Calculate the information gain of a split'''
+        parent_size = len(parent)
+        parent_entropy = self.entropy(parent)
+        children_entropy = 0
+        for child in children:
+            child_size = len(child)
+            child_entropy = self.entropy(child)
+            children_entropy += (child_size / parent_size) * child_entropy
+
+        return parent_entropy - children_entropy
+
 
 
     def split(self, index, value, dataset):
@@ -163,3 +173,40 @@ class DecisionTree:
         """
 
         return [self.predict_on_single_example(self.tree, row) for row in X]
+    
+tree = DecisionTree(10)
+
+parent = [[0, 0, 0, 0, 0],
+          [0, 0, 0, 1, 0],
+          [2, 0, 0, 0, 1],
+          [1, 1, 0, 0, 1],
+          [1, 2, 1, 0, 1],
+          [1, 2, 1, 1, 0],
+          [2, 2, 1, 1, 1],
+          [0, 1, 0, 0, 0],
+          [0, 2, 1, 0, 1],
+          [1, 1, 1, 0, 1],
+          [0, 1, 1, 1, 1],
+          [2, 1, 0, 1, 1],
+          [2, 0, 1, 0, 1],
+          [1, 1, 0, 1, 0]]
+
+child1 = [[0, 0, 0, 0, 0],
+          [0, 0, 0, 1, 0],
+          [2, 0, 0, 0, 1],
+          [1, 1, 0, 0, 1],
+          [0, 1, 0, 0, 0],
+          [2, 1, 0, 1, 1],
+          [1, 1, 0, 1, 0]]
+
+
+child2 = [[1, 2, 1, 0, 1],
+          [1, 2, 1, 1, 0],
+          [2, 2, 1, 1, 1],
+          [0, 2, 1, 0, 1],
+          [1, 1, 1, 0, 1],
+          [0, 1, 1, 1, 1],
+          [2, 0, 1, 0, 1]]
+
+gain = tree.information_gain(parent, [child1, child2])
+print(gain)
