@@ -52,8 +52,9 @@ class DecisionTree:
                 label_count = [row[-1] for row in group].count(label)
                 ratio = label_count / total_samples
                 entropy += -1 * (ratio) * np.log2(ratio)
+                return entropy
 
-        return entropy
+        
 
 
     def split(self, index, value, dataset):
