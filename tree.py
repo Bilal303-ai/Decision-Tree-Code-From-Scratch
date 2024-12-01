@@ -236,3 +236,9 @@ class DecisionTree:
         '''Predict the lables for multiple examples'''
 
         return [self.predict_on_single_example(self.tree, row) for row in X]
+
+    def evaluate(self, X, y):
+        predictions = self.predict(X)
+        score = np.sum(predictions == y)
+        accurace = score / len(X)
+        return score
