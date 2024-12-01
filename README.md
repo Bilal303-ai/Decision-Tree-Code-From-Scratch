@@ -8,6 +8,7 @@ cd Decision-Tree-Code-From-Scratch
 ```
 Import the DecisionTree class and fit the tree on your dataset
 ```
+>>> import numpy as np
 >>> from tree import DecisionTree
 >>> X_train = np.array([[0, 0, 0, 0], # All features are catagorical
                   [0, 0, 0, 1],
