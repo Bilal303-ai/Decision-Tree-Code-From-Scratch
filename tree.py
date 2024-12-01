@@ -1,8 +1,6 @@
 import numpy as np
 
-
 class DecisionTree:
-
     def __init__(self, max_depth, criterion='gini'):
         """
         Initialize the Decision Tree with a max depth and splitting crtierion
@@ -14,8 +12,7 @@ class DecisionTree:
         if self.criterion not in ['gini', 'entropy']:
             raise ValueError("Allowed values for parameter 'criterion' are 'gini' and 'entropy'")
         self.tree = None
-
-
+        
     def gini_index(self, groups, classes):
         '''Compute the gini index of a split'''
         total_samples = sum([len(group) for group in groups])
@@ -34,7 +31,7 @@ class DecisionTree:
 
             weighted_gini += (size / total_samples) * gini
         return weighted_gini
-
+        
     def entropy(self, group):
         '''Compute the entropy of a group of samples'''
 
@@ -78,10 +75,6 @@ class DecisionTree:
         
         except ValueError:
             return 'Categorical'
-
-        
-
-
 
     def split_categorical(self, attribute_values, dataset):
         '''Split a dataset based on an attribute with categorical values'''
