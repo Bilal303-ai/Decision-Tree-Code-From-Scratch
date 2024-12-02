@@ -7,10 +7,14 @@ class DecisionTree:
         :param max_depth: Maximum depth of the tree
         :param criterion: Criterion to evalate splits, "gini" or "entropy"
         """
+        if max_depth < 1:
+            raise Exception("Maximum depth of the tree should be a positive integer")
+
+        if criterion not in ['gini', 'entropy']:
+            raise Exception("Allowed values for parameter 'criterion' are 'gini' and 'entropy'")
+        
         self.max_depth = max_depth
         self.criterion = criterion
-        if self.criterion not in ['gini', 'entropy']:
-            raise Exception("Allowed values for parameter 'criterion' are 'gini' and 'entropy'")
         self.tree = None
         
     def gini_index(self, groups, classes):
