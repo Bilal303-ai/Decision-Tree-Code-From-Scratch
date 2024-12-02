@@ -68,7 +68,7 @@ class DecisionTree:
             attribute_values = np.array(attribute_values).astype(float)
             unique_values = np.unique(attribute_values)
             ratio = len(unique_values) / len(attribute_values)
-            if ratio >= 0.75:
+            if ratio > 0.75:
                 return 'Numerical'
             else:
                 return 'Categorical'
@@ -240,5 +240,5 @@ class DecisionTree:
     def evaluate(self, X, y):
         predictions = self.predict(X)
         score = np.sum(predictions == y)
-        accurace = score / len(X)
-        return score
+        accuracy = score / len(X)
+        return accuracy
