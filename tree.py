@@ -10,7 +10,7 @@ class DecisionTree:
         self.max_depth = max_depth
         self.criterion = criterion
         if self.criterion not in ['gini', 'entropy']:
-            raise ValueError("Allowed values for parameter 'criterion' are 'gini' and 'entropy'")
+            raise Exception("Allowed values for parameter 'criterion' are 'gini' and 'entropy'")
         self.tree = None
         
     def gini_index(self, groups, classes):
