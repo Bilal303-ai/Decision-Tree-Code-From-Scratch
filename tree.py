@@ -142,7 +142,7 @@ class DecisionTree:
                     groups = self.split_categorical(attribute_values, dataset)
                     info_gain = self.information_gain(dataset, [group[0] for group in groups])
                     if info_gain > best_gain:
-                        best_attribute, best_value, attribute_type, best_gain, best_groups,  = attribute, 'Categorical', [group[1] for group in groups], info_gain, [group[0] for group in groups],
+                        best_attribute, attribute_type, best_value, best_gain, best_groups,  = attribute, 'Categorical', [group[1] for group in groups], info_gain, [group[0] for group in groups],
 
                 else:
                     mean_attribute_values = []
