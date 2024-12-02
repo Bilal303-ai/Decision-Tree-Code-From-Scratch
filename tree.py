@@ -126,7 +126,7 @@ class DecisionTree:
                     gini = self.gini_index([group[0] for group in groups], class_values)
 
                     if gini < best_score:
-                        best_attribute, attribute_type, best_value, best_score, best_groups = attribute, 'Categorical', [group[1] for group in groups], gini, [group[0] for group in groups]
+                        best_attribute, best_attribute_type, best_value, best_score, best_groups = attribute, 'Categorical', [group[1] for group in groups], gini, [group[0] for group in groups]
 
                 else:
                     mean_attribute_values = []
@@ -139,14 +139,14 @@ class DecisionTree:
                         groups = self.split_numerical(attribute, mean_value, dataset)
                         gini = self.gini_index(groups, class_values)
                         if gini < best_score:
-                            best_attribute, attribute_type, best_value, best_score, best_groups = attribute, 'Numerical', mean_value, gini, groups
+                            best_attribute, best_attribute_type, best_value, best_score, best_groups = attribute, 'Numerical', mean_value, gini, groups
             
             else:
                 if attribute_type == 'Categorical':
                     groups = self.split_categorical(attribute_values, dataset)
                     info_gain = self.information_gain(dataset, [group[0] for group in groups])
                     if info_gain > best_gain:
-                        best_attribute, attribute_type, best_value, best_gain, best_groups,  = attribute, 'Categorical', [group[1] for group in groups], info_gain, [group[0] for group in groups],
+                        best_attribute, best_attribute_type, best_value, best_gain, best_groups,  = attribute, 'Categorical', [group[1] for group in groups], info_gain, [group[0] for group in groups],
 
                 else:
                     mean_attribute_values = []
@@ -159,9 +159,9 @@ class DecisionTree:
                         groups = self.split_numerical(attribute, mean_value, dataset)
                         info_gain = self.information_gain(dataset, groups)
                         if info_gain > best_gain:
-                            best_attribute, attribute_type, best_value, best_gain, best_groups = attribute, 'Numerical', mean_value, info_gain, groups
+                            best_attribute, best_attribute_type, best_value, best_gain, best_groups = attribute, 'Numerical', mean_value, info_gain, groups
             
-        return {'attribute': best_attribute, 'attribute type':attribute_type, 'value': best_value  ,'groups': best_groups}
+        return {'attribute': best_attribute, 'attribute type': best_attribute_type, 'value': best_value  ,'groups': best_groups}
 
     def make_decision(self, group):
         '''Decide whether to convert a group into a leaf node'''
